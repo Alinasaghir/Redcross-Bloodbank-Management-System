@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="recipient.css">
+    <style>
+            .btn{
+                background-color: red;
+                color: white!important;
+            }
+            .navbar {
+                background-color: red !important;
+            }
+            .navbar .navbar-brand,
+            .navbar .navbar-text
+            {
+                color: white;
+            }
+            .navbar {
+               position: fixed; top: 0; left: 0; z-index: 9999; width: 102%; height: 70px; }
+            .navbar-dark .navbar-nav .nav-link{
+                color:white !important;
+            }
+            iframe, object, embed {
+    width: 100%;
+}
+        </style>
+    <title>Recipient</title>
+</head>
+
+<header>    
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+          <img height="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAKlBMVEX////aEhreQUXaBxLgUFPcKS7aCxXYAADcJCreP0PZAAzfREjgVFfbGiHjx6lCAAABW0lEQVR4nO3aXWrCUBhFUX+iJlHnP90W+rihuVAxQtcaQDh3k8fvcAAAAAAAAAAA4NNN82XLPO098s2W9bplXfYe+Wan83HL+bT3yDfTpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDSp+0CT+94jX+I0DXo8N5Mcj8/H6Oc++Y+6nUcNJPn+U0bd9n74L25DT309TTTRRBNNNNHkhyalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSblTKvdsf/F/7h7HuY8tTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqTWtbrlnXZe+SbTfNlyzztPRIAAAAAAAAAgE1fDsYnkLjXRAIAAAAASUVORK5CYII="/>
+          &nbsp;<b> RedCross Blood Bank</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fas fa-align-right text-light"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="mr-auto"></div>
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="home.html">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="locations.html">Location</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Help us
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="user_login.html">Donor or Recipient</a>
+                <a class="dropdown-item" href="funds.html">Fund raiser</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">Admin?</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="funds.html">Funds</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="survey.html">Survey</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="question forum.html">QA Forum</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </br></br></br>
+  </header>
+<body>
+   <div class="bg">
+        <div class="innerBg"><br><br>
+        <h2 class="heading"><u>BLOOD DETAILS</u></h1>
+        <h4 class="heading" style="color:black">Kindly fill the following form completely so we can match your requirements with our available blood stock.</h2>
+    <br>
+    <form action="recipient.php" method="post">
+        <!-- <select name="group" class="select" required>
+            <option selected disabled>Select Blood Group</option>
+            <option value="A+">A+</option>            
+            <option value="A-">A-</option>            
+            <option value="B+">B+</option>            
+            <option value="B-">B-</option>            
+            <option value="O+">O+</option>            
+            <option value="O-">O-</option>            
+            <option value="AB+">AB+</option>            
+            <option value="AB-">AB-</option>            
+        </select>  -->
+        <input type="number" class="select" name="quantity" id="quantity" placeholder="Blood Quantity in Liters " min=0 oninput="BloodPrice()" required>
+        <br>
+        <h6 style="text-align: center;">*One blood bottle/ liter = 2200 RS</label>
+        <h3 id="msg"> </h3><br>
+        <button type="submit" class="btn">Submit</button>
+    </form> </div>
+</div>
+        
+        <script>
+            function BloodPrice(){
+                let quantity=document.querySelector('#quantity');
+                let msg=document.querySelector('#msg');
+                let P=document.querySelector('#price');
+                let price=2200*quantity.value;
+                msg.innerHTML="Blood Price to be paid: Rs. " + price;
+            } 
+           </script> 
+        
+
+</body>
+<footer style="background: red" class="footer">
+    <div class="row" >
+        <div class="footer-col">
+          <h4><img height="30" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAKlBMVEX////aEhreQUXaBxLgUFPcKS7aCxXYAADcJCreP0PZAAzfREjgVFfbGiHjx6lCAAABW0lEQVR4nO3aXWrCUBhFUX+iJlHnP90W+rihuVAxQtcaQDh3k8fvcAAAAAAAAAAA4NNN82XLPO098s2W9bplXfYe+Wan83HL+bT3yDfTpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDSp+0CT+94jX+I0DXo8N5Mcj8/H6Oc++Y+6nUcNJPn+U0bd9n74L25DT309TTTRRBNNNNHkhyalSWlSmpQmpUlpUpqUJqVJaVKalCalSWlSmpQmpUlpUpqUJqVJaVKalCalSblTKvdsf/F/7h7HuY8tTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqT0qQ0KU1Kk9KkNClNSpPSpDQpTUqTWtbrlnXZe+SbTfNlyzztPRIAAAAAAAAAgE1fDsYnkLjXRAIAAAAASUVORK5CYII="/>
+       &nbsp;<b> RedCross Blood Bank</b></a></h4>
+          <ul>
+            <li><a href="#">about us</a></li>
+            <li><a href="#">our services</a></li>
+            <li><a href="#">privacy policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Help us</h4>
+          <ul>
+            <li><a href="#">Fund Raise</a></li>
+            <li><a href="#">Donate us</a></li>
+            <li><a href="#">Give Ratings</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Admin Options</h4>
+          <ul>
+            <li><a href="#">Maps</a></li>
+            <li><a href="#">Charts</a></li>
+            <li><a href="#">Advanced Options</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>follow us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+    
+    </div>
+  </footer>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </html>

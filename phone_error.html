@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Number Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h2 {
+            color: black;
+        }
+
+        .retry-button, .home-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .retry-button:hover, .home-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        // Function to redirect to the previous page
+        function redirectToPreviousPage() {
+            window.history.back();
+        }
+
+        // Function to redirect to the home page
+        function redirectToHome() {
+            window.location.href = "home.html";
+        }
+    </script>
+</head>
+<body>
+    <h2>The phone number should start with '03' or '02'. Please try again.</h2>
+    <button class="retry-button" onclick="redirectToPreviousPage()">Retry</button>
+    <button class="home-button" onclick="redirectToHome()">Home</button>
+</body>
+</html>

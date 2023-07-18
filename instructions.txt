@@ -1,0 +1,12 @@
+before executing these codes first create a new column in the users table(bloodbank DB) with name as sys_date and set type as DATE with default value current_timestamp().
+
+The code will delete only the record registered before the last 5 years..so you have to explicitly insert any sample date in the database before last five years(for e.g year 2017,2016,so on) correspond to any user in the users table to test this code.
+
+Keep in mind the donor and recipients have the user_ids which are PKs and on which FK constraint is also applied so they are taking reference from users table.
+
+Inshort ,
+users table has 9 columns(user_id,email,first_name,last_name,phone,gender,blood_group,category,sys_date)
+donor table has 3 columns(user_id, Age,Disease)
+recipient table has 3 columns(user_id,quantity,cost_Rs)
+
+user_id in users acts as PK for itself and FK for donor and recipient

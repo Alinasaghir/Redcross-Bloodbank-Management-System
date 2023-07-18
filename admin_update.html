@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:last-child {
+            margin-bottom: 0;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Page</h1>
+        <h2>Enter Blood Type and Stock</h2>
+        <form id="adminForm" onsubmit="return submitForm()">
+            <label for="bloodGroup">Blood Group:</label>
+            <select name="bloodGroup" id="bloodGroup" required>
+                <option selected disabled>Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <label for="bloodStock">Blood Stock:</label>
+            <input type="number" id="bloodStock" name="bloodStock" required min="0" oninput="validity.valid||(value='');" pattern="[0-9]+" title="Blood Stock must be a positive integer">
+
+            <div class="error-message" id="errorBloodStock"></div>
+
+            <div class="button-container">
+                <button type="submit">Submit</button>
+                <button type="button" onclick="redirectToHome()">Go to Home Page</button>
+                <button type="button" onclick="redirectToAdminOperations()">Go to Admin Operations</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+            
+        function submitForm() {
+            // Validate the blood stock input
+            const bloodStock = document.getElementById("bloodStock").value;
+            if (!Number.isInteger(Number(bloodStock)) || Number(bloodStock) < 0) {
+                document.getElementById("errorBloodStock").innerText = "Blood Stock must be a positive integer.";
+                return false;
+            }
+    
+            // Create an AJAX request to submit the form data to admin_update.php
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    // If the AJAX request is successful, handle the response
+                    const response = this.responseText;
+                    document.getElementById("errorBloodStock").innerText = response;
+                }
+            };
+    
+            const form = document.getElementById("adminForm");
+            const formData = new FormData(form);
+            xhttp.open("POST", "admin_update.php", true);
+            xhttp.send(formData);
+    
+            // Prevent the form from submitting through the regular method
+            return false;
+        }
+    
+        function redirectToHome() {
+            window.location.href = "home.html";
+        }
+    
+        function redirectToAdminOperations() {
+            window.location.href = "admin_operations.html";
+        }
+    
+    </script>
+</body>
+</html>
+
+
+

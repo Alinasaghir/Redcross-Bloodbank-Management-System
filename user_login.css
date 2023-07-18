@@ -1,0 +1,118 @@
+html{
+    height:100%;
+    margin: 0px;
+}
+/* Nav bar styling */
+img{
+    margin:3px 12px;
+    height:35px;
+    width:40px;
+}
+#navbar{
+    width:100%;
+    display: flexbox;
+    background-color:brown;
+    position: relative;
+    height:40px;
+    top: -2%;
+}
+#navbar span{
+    position: relative;
+    top:-40%;
+    height: 8px;
+    size: 20px;
+    text-align: center ;
+    color:rgb(255, 255, 255)}
+    /*Login form + heading styling  */
+   #login{
+    display: flex ;
+    flex-direction: column;  
+    padding:3px 300px;
+    align-items: center;
+    justify-content: center; 
+    } 
+.note{
+    margin-top: -20px;
+}  
+/* background img */
+#body::before{
+    content:"";
+    position: absolute;
+    background: url(./Blood-Bank-2.jpg) repeat no-repeat center/cover!important;
+    width:100%;
+    height:100%;
+    z-index: -1;}
+    
+#login h3{
+color:brown;
+text-align: center;
+}
+#login span{
+color: brown;
+text-align: center;
+font-size:1.2rem;
+}   
+.h-primary{
+    font-size: 1.8rem;
+    padding:0px;   
+}
+.form{
+    align-items: center;
+    align-content: center;
+    height: 100%;
+}
+input{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top:10px;
+}
+#gender{
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top:10px;
+}
+
+#category{
+    border-color: black;
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top:10px;
+}
+
+.btn{
+margin-top: 3px;
+margin-inline-start: 30px;
+padding: 10px;
+width:80px;
+color:white;
+background-color: brown;
+cursor: pointer;
+border-radius: 5px;
+}
+/* Label tag styling */
+label{
+padding-top:12px;
+margin-inline-start: 30px;
+}
+/* select tag styling */
+.box{
+display: flex;
+padding-top: 23px;
+}
+select {
+border-radius: 5px;
+}
+
+
+
+
