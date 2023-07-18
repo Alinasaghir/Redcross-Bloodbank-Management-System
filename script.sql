@@ -48,13 +48,20 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER ADMIN_BeforeInsert
-BEFORE INSERT ON ADMIN
-FOR EACH ROW
-BEGIN
-  DECLARE NEW_ID INT;
-  SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(ADMIN_ID, '-', -1)), 0) + 1 FROM ADMIN);
-  SET NEW.ADMIN_ID = CONCAT('A-', LPAD(NEW_ID, 2, '0'));
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER ADMIN_BeforeInsert
+
+BEFORE INSERT ON ADMIN
+
+FOR EACH ROW
+
+BEGIN
+
+  DECLARE NEW_ID INT;
+
+  SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(ADMIN_ID, '-', -1)), 0) + 1 FROM ADMIN);
+
+  SET NEW.ADMIN_ID = CONCAT('A-', LPAD(NEW_ID, 2, '0'));
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -229,17 +236,28 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER AFTER_INSERT_DONOR
-AFTER INSERT ON DONOR
-FOR EACH ROW
-BEGIN
-    DECLARE bloodGroup VARCHAR(10);
-    SELECT BLOOD_GROUP INTO bloodGroup FROM USERS WHERE USER_ID = NEW.USER_ID;
-    
-    UPDATE BLOODBAG
-    SET STOCK = STOCK + 1.0
-    WHERE BLOOD_TYPE = bloodGroup;
-    
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER AFTER_INSERT_DONOR
+
+AFTER INSERT ON DONOR
+
+FOR EACH ROW
+
+BEGIN
+
+    DECLARE bloodGroup VARCHAR(10);
+
+    SELECT BLOOD_GROUP INTO bloodGroup FROM USERS WHERE USER_ID = NEW.USER_ID;
+
+    
+
+    UPDATE BLOODBAG
+
+    SET STOCK = STOCK + 1.0
+
+    WHERE BLOOD_TYPE = bloodGroup;
+
+    
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -328,10 +346,14 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `contact` BEFORE INSERT ON `questions` FOR EACH ROW BEGIN
-  DECLARE NEW_ID INT;
-  SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(CONTACT_ID, '-', -1)), 0) + 1 FROM questions);
-  SET NEW.CONTACT_ID = CONCAT('CONTACT-', LPAD(NEW_ID, 2, '0'));
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `contact` BEFORE INSERT ON `questions` FOR EACH ROW BEGIN
+
+  DECLARE NEW_ID INT;
+
+  SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(CONTACT_ID, '-', -1)), 0) + 1 FROM questions);
+
+  SET NEW.CONTACT_ID = CONCAT('CONTACT-', LPAD(NEW_ID, 2, '0'));
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -373,36 +395,66 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER AFTER_INSERT_RECIPIENT
-AFTER INSERT ON RECIPIENT
-FOR EACH ROW
-BEGIN
-    -- Get the blood type and new quantity of the recipient from the USERS and RECIPIENT tables
-    DECLARE bloodType VARCHAR(10);
-    DECLARE newQuantity INT(65);
-
-    SELECT BLOOD_GROUP INTO bloodType FROM USERS WHERE USER_ID = NEW.USER_ID;
-    SELECT QUANTITY INTO newQuantity FROM RECIPIENT WHERE USER_ID = NEW.USER_ID;
-    
-    -- Check if the blood type exists in the BLOODBAG table
-    SET @stock := 0;
-    SELECT STOCK INTO @stock FROM BLOODBAG WHERE BLOOD_TYPE = bloodType;
-
-    IF @stock IS NOT NULL THEN
-        -- Update the stock in the BLOODBAG table
-        SET @newStock := @stock - newQuantity;
-        IF @newStock >= 0 THEN
-            UPDATE BLOODBAG
-            SET STOCK = @newStock
-            WHERE BLOOD_TYPE = bloodType;
-        ELSE
-            SIGNAL SQLSTATE '45000'
-            SET MESSAGE_TEXT = 'Error: Blood bag does not have sufficient stock.';
-        END IF;
-    ELSE
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Error: Blood bag stock for the blood group not found.';
-    END IF;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER AFTER_INSERT_RECIPIENT
+
+AFTER INSERT ON RECIPIENT
+
+FOR EACH ROW
+
+BEGIN
+
+    -- Get the blood type and new quantity of the recipient from the USERS and RECIPIENT tables
+
+    DECLARE bloodType VARCHAR(10);
+
+    DECLARE newQuantity INT(65);
+
+
+
+    SELECT BLOOD_GROUP INTO bloodType FROM USERS WHERE USER_ID = NEW.USER_ID;
+
+    SELECT QUANTITY INTO newQuantity FROM RECIPIENT WHERE USER_ID = NEW.USER_ID;
+
+    
+
+    -- Check if the blood type exists in the BLOODBAG table
+
+    SET @stock := 0;
+
+    SELECT STOCK INTO @stock FROM BLOODBAG WHERE BLOOD_TYPE = bloodType;
+
+
+
+    IF @stock IS NOT NULL THEN
+
+        -- Update the stock in the BLOODBAG table
+
+        SET @newStock := @stock - newQuantity;
+
+        IF @newStock >= 0 THEN
+
+            UPDATE BLOODBAG
+
+            SET STOCK = @newStock
+
+            WHERE BLOOD_TYPE = bloodType;
+
+        ELSE
+
+            SIGNAL SQLSTATE '45000'
+
+            SET MESSAGE_TEXT = 'Error: Blood bag does not have sufficient stock.';
+
+        END IF;
+
+    ELSE
+
+        SIGNAL SQLSTATE '45000'
+
+        SET MESSAGE_TEXT = 'Error: Blood bag stock for the blood group not found.';
+
+    END IF;
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -495,18 +547,30 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ZERO_IN_DATE,NO_ZERO_DATE,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER USERS_BEFOREINSERT
-BEFORE INSERT ON USERS
-FOR EACH ROW
-BEGIN
-    DECLARE NEW_ID INT;
-    IF NEW.CATEGORY = 'DONOR' THEN
-        SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(USER_ID, '-', -1)), 0) + 1 FROM USERS WHERE CATEGORY = 'DONOR');
-        SET NEW.USER_ID = CONCAT('D-', LPAD(NEW_ID, 2, '0'));
-    ELSEIF NEW.CATEGORY = 'RECIPIENT' THEN
-        SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(USER_ID, '-', -1)), 0) + 1 FROM USERS WHERE CATEGORY = 'RECIPIENT');
-        SET NEW.USER_ID = CONCAT('R-', LPAD(NEW_ID, 2, '0'));
-    END IF;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER USERS_BEFOREINSERT
+
+BEFORE INSERT ON USERS
+
+FOR EACH ROW
+
+BEGIN
+
+    DECLARE NEW_ID INT;
+
+    IF NEW.CATEGORY = 'DONOR' THEN
+
+        SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(USER_ID, '-', -1)), 0) + 1 FROM USERS WHERE CATEGORY = 'DONOR');
+
+        SET NEW.USER_ID = CONCAT('D-', LPAD(NEW_ID, 2, '0'));
+
+    ELSEIF NEW.CATEGORY = 'RECIPIENT' THEN
+
+        SET NEW_ID = (SELECT COALESCE(MAX(SUBSTRING_INDEX(USER_ID, '-', -1)), 0) + 1 FROM USERS WHERE CATEGORY = 'RECIPIENT');
+
+        SET NEW.USER_ID = CONCAT('R-', LPAD(NEW_ID, 2, '0'));
+
+    END IF;
+
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
