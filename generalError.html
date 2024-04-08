@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Phone Number Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        h2 {
+            color: red;
+        }
+
+        .retry-button, .home-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+
+        .retry-button:hover, .home-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+
+        // Function to redirect to the home page
+        function redirectToHome() {
+            window.location.href = "home.html";
+        }
+    </script>
+</head>
+<body>
+    <h2>There is a crash in our system.We are working on it and we appreciate your cooperation towards us</h2>
+    <button class="home-button" onclick="redirectToHome()">Back to Home Page</button>
+</body>
+</html>
